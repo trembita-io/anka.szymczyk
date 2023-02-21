@@ -1,0 +1,25 @@
+.smaller { 
+    color: rgba(117, 117, 117, 1);
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.devider { 
+    background-color: rgb(230, 230, 230);
+    height: 1px;
+    border: 0;
+}
+
+.container {
+    margin: 3rem auto;
+    max-width: 600px;
+}
+
+.article {
+    padding: 24px 0;
+
+    &__link {
+        color: unset;
+        text-decoration: none;
+    }
+}
