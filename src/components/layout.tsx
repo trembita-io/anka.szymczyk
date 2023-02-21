@@ -7,9 +7,9 @@ import Sidebar from "./sidebar";
 import Footer from "./footer";
 import { SkipNavTarget, SkipNavTrigger } from "./skip-nav";
 
-type LayoutProps = { children: React.ReactNode; color?: string };
+type LayoutProps = { children: React.ReactNode; color?: string, slim?: boolean; };
 
-const Layout = ({ children, color = `white` }: LayoutProps) => (
+const Layout = ({ children, color = `white`, slim }: LayoutProps) => (
   <React.Fragment>
     <Global
       styles={(t) => ({
@@ -49,7 +49,7 @@ const Layout = ({ children, color = `white` }: LayoutProps) => (
     <SkipNavTrigger />
     <Wrapper>
       <Sidebar bg={color} />
-      <main sx={{ gridColumnStart: [1, 1, 1, 2] }}>
+      <main className={`container mx-auto ${!slim && 'px-4 py-4'}`} sx={{ gridColumnStart: [1, 1, 1, 2] }}>
         <SkipNavTarget />
         {children}
       </main>

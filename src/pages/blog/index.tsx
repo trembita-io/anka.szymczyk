@@ -1,21 +1,19 @@
 import { graphql, HeadFC, Link } from "gatsby";
 import React from "react";
 import Layout from "../../components/layout";
+import { PageTitle, Time } from "../../components/page-title";
 import Seo from "../../components/seo";
 import * as styles from './blog.module.scss';
 
 const BlogPage = ({ data }: { data: Props }) => {
-  console.log(data, styles);
-
   const { nodes: blogPosts, totalCount } = data.allMdx;
   const {container, smaller, devider, article, article__link} = styles;
 
   return (
     <Layout>
-      <h1>
-        Anka Szymczyk
+      <PageTitle title="Anka Szymczyk">
         <sub className={smaller}>{totalCount} posts</sub>
-      </h1>
+      </PageTitle>
 
       <main className={container}>
         {blogPosts.map(
@@ -30,19 +28,16 @@ const BlogPage = ({ data }: { data: Props }) => {
           ) => (
             <React.Fragment key={id}>
               <Link className={article__link} to={slug?.toLowerCase()}>
-              <article className={article}>
-                <span className={smaller}>{date}</span>
-                <h2>{title}</h2>
+                <article className={article}>
+                  <Time date={date} modifiedTime={modifiedTime}></Time>
 
-                <span> {excerpt.slice(0, 200)}...</span>
+                  <h2 className="text-2xl">{title}</h2>
 
-                {date !== modifiedTime && (
-                  <p className={smaller}>Updated: {modifiedTime}</p>
-                )}
-              </article>
+                  <span> {excerpt.slice(0, 200)}...</span>
+                </article>
               </Link>
 
-              {index !== totalCount - 1 && <hr className={devider} />}
+              {index !== totalCount - 1 && <hr className={`${devider} my-4`} />}
             </React.Fragment>
           )
         )}

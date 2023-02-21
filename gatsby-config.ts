@@ -8,9 +8,9 @@ const config: GatsbyConfig = {
     // You can also add new values here to query them like usual
     // See all options: https://github.com/LekoArts/gatsby-themes/blob/main/themes/gatsby-theme-jodie/gatsby-config.mjs
     siteTitle: `Anka Szymczyk`,
-    siteTitleAlt: `Anka Szymczyk - Art`,
-    siteHeadline: `Anka Szymczyk - Art, Paint`,
-    siteDescription: `Wort of Anka Szymczyk`,
+    siteTitleAlt: `Anka Szymczyk - Art, Clay, Pain`,
+    siteHeadline: `Anka Szymczyk - Art, Clay, Pain`,
+    siteDescription: `Work of Anka Szymczyk`,
     siteImage: `/banner.png`,
     siteLanguage: `en`,
     author: `@danbilokha`,
@@ -22,6 +22,7 @@ const config: GatsbyConfig = {
   trailingSlash: `never`,
   plugins: [
     "gatsby-plugin-sass",
+    'gatsby-plugin-postcss',
     "gatsby-plugin-image",
     "gatsby-plugin-sitemap",
     {

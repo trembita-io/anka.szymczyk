@@ -15,14 +15,13 @@ export type HomepageProps = {
     nodes: {
       frontmatter: {
         title: string;
+        slug: string;
         cover: {
           childImageSharp: {
             gatsbyImageData: IGatsbyImageData;
           };
         };
       }
-      slug: string;
-      
       __typename: "MdxProject";
     }[];
   };
@@ -33,7 +32,6 @@ const Homepage: React.FC<PageProps<HomepageProps>> = ({
 }) => {
   const { allMdx: projects } = data;
   const items = [...projects.nodes];
-  // const items = modifyGrid(rawItems)
   const itemsCount = items.length;
   let divisor = 9;
 
@@ -48,10 +46,8 @@ const Homepage: React.FC<PageProps<HomepageProps>> = ({
     divisor -= 1;
   }
 
-  console.log(items, divisor);
-
   return (
-    <Layout>
+    <Layout slim={true}>
       <h1 sx={visuallyHidden} data-testid="page-title">
         {locales.home}
       </h1>
@@ -60,22 +56,21 @@ const Homepage: React.FC<PageProps<HomepageProps>> = ({
           {items.length > 0 ? (
             items.map(({ frontmatter: item }, index) => (
               <GridItem
-                // to={item.slug}
-                to="/"
+                to={`/projects/${item.slug}`}
                 className="item"
                 key={item.title}
                 sx={itemStyles}
                 data-testid={item.title}
               >
-                {
-                  !!item.cover?.childImageSharp?.gatsbyImageData
-                  ? <GatsbyImage
+                {!!item.cover?.childImageSharp?.gatsbyImageData ? (
+                  <GatsbyImage
                     loading={index === 0 ? `eager` : `lazy`}
                     image={item.cover?.childImageSharp?.gatsbyImageData}
                     alt=""
                   />
-                  : <img srcSet="/logo.png" />
-                }
+                ) : (
+                  <img srcSet="/logo.png" />
+                )}
                 <span>{item.title}</span>
               </GridItem>
             ))
@@ -104,6 +99,7 @@ export const query = graphql`
         frontmatter {
           date(formatString: "MMMM D, YYYY")
           title
+          slug
           color
           cover {
             childImageSharp {

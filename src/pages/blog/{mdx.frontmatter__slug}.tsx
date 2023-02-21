@@ -1,10 +1,11 @@
 import { graphql, PageProps } from 'gatsby';
 import * as React from 'react'
+import { More } from '../../components/more';
 import Layout from '../../components/layout'
+import { PageTitle } from '../../components/page-title';
 import Seo from '../../components/seo'
 
 import * as styles from './blog.module.scss';
-import * as articleStyles from './article.module.scss';
 
 type Props = {
   mdx: {
@@ -12,7 +13,6 @@ type Props = {
       title: string;
       date: string;
     };
-    excerpt: string;
     id: string;
     parent: {
       modifiedTime: string;
@@ -21,24 +21,27 @@ type Props = {
 };
 
 const BlogPost:React.FC<PageProps<Props>> = (props) => {
-  const { data: { mdx: { id, frontmatter: { title, date }, excerpt, parent: {modifiedTime} }} } = props;
+  const {
+    data: {
+      mdx: {
+        frontmatter: { title, date },
+        parent: { modifiedTime },
+      },
+    },
+  } = props;
   const { children } = props;
 
-  const {container, smaller, devider, article, article__link} = styles;
+  const {smaller, article,} = styles;
 
   return (
     <Layout>
-      <article className={article}>
-        <span className={smaller}>
-          {date}
-        {date !== modifiedTime && (
-          <span className={smaller}>, Updated: {modifiedTime}</span>
-        )}
-        </span>
-
-        <h2>{title}</h2>
-        <article className={`${articleStyles.article} text-center sm:text-left`}>{children}</article>
-      </article>
+      <PageTitle
+        title={title}
+        date={date}
+        modifiedTime={modifiedTime}
+      ></PageTitle>
+      <article className={article}>{children}</article>
+      <More />
     </Layout>
   );
 }
@@ -51,7 +54,6 @@ export const query = graphql`
   query MyQuery($id: String) {
     mdx(id: { eq: $id }) {
       id
-      excerpt
       frontmatter {
         title
         date(formatString: "MMMM D, YYYY")
