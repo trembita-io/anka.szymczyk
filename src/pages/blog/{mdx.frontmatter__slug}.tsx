@@ -1,11 +1,12 @@
-import { graphql, PageProps } from 'gatsby';
-import * as React from 'react'
-import { More } from '../../components/more';
-import Layout from '../../components/layout'
-import { PageTitle } from '../../components/page-title';
-import Seo from '../../components/seo'
+import { graphql, PageProps } from "gatsby";
+import * as React from "react";
+import Seo from "../../components/accessabilities/seo";
+import { More } from "../../components/shared/more";
+import { PageTitle } from "../../components/shared/page-title";
+import Layout from "../../components/structure/layout";
 
-import * as styles from './blog.module.scss';
+import { Time } from "../../components/shared/time";
+import * as styles from "./blog.module.scss";
 
 type Props = {
   mdx: {
@@ -20,7 +21,7 @@ type Props = {
   };
 };
 
-const BlogPost:React.FC<PageProps<Props>> = (props) => {
+const BlogPost: React.FC<PageProps<Props>> = (props) => {
   const {
     data: {
       mdx: {
@@ -31,24 +32,23 @@ const BlogPost:React.FC<PageProps<Props>> = (props) => {
   } = props;
   const { children } = props;
 
-  const {smaller, article,} = styles;
+  const { smaller, article } = styles;
 
   return (
     <Layout>
-      <PageTitle
-        title={title}
-        date={date}
-        modifiedTime={modifiedTime}
-      ></PageTitle>
+      <PageTitle title={title} time={<Time date={date} modifiedTime={modifiedTime}></Time>}>
+      </PageTitle>
       <article className={article}>{children}</article>
       <More />
     </Layout>
   );
-}
+};
 
-export const Head = ({data}: {data: Props}) => <Seo title={data.mdx.frontmatter.title} />
+export const Head = ({ data }: { data: Props }) => (
+  <Seo title={data.mdx.frontmatter.title} />
+);
 
-export default BlogPost
+export default BlogPost;
 
 export const query = graphql`
   query MyQuery($id: String) {
@@ -65,4 +65,4 @@ export const query = graphql`
       }
     }
   }
-`
+`;

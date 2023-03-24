@@ -10,6 +10,7 @@ const GridItem: React.FC<
     to={to}
     sx={{
       position: `relative`,
+      margin: '1px',
       // @ts-ignore
       "> div": {
         position: `absolute !important`,

@@ -5,7 +5,7 @@ import { Global } from "@emotion/react";
 import Wrapper from "./layout-wrapper";
 import Sidebar from "./sidebar";
 import Footer from "./footer";
-import { SkipNavTarget, SkipNavTrigger } from "./skip-nav";
+import { SkipNavTarget, SkipNavTrigger } from "../accessabilities/skip-nav";
 
 type LayoutProps = { children: React.ReactNode; color?: string, slim?: boolean; };
 

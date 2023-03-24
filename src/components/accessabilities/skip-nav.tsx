@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, ThemeUICSSObject } from "theme-ui";
 import * as React from "react";
-import { visuallyHidden } from "../styles/utils";
+import { visuallyHidden } from "../../styles/utils";
 
 const triggerCss: ThemeUICSSObject = {
   ...visuallyHidden,

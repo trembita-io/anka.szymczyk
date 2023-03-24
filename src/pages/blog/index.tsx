@@ -1,8 +1,9 @@
 import { graphql, HeadFC, Link } from "gatsby";
 import React from "react";
-import Layout from "../../components/layout";
-import { PageTitle, Time } from "../../components/page-title";
-import Seo from "../../components/seo";
+import Seo from "../../components/accessabilities/seo";
+import Layout from "../../components/structure/layout";
+import { PageTitle } from "../../components/shared/page-title";
+import { Time } from "../../components/shared/time";
 import * as styles from './blog.module.scss';
 
 const BlogPage = ({ data }: { data: Props }) => {

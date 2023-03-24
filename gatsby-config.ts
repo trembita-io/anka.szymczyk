@@ -8,8 +8,8 @@ const config: GatsbyConfig = {
     // You can also add new values here to query them like usual
     // See all options: https://github.com/LekoArts/gatsby-themes/blob/main/themes/gatsby-theme-jodie/gatsby-config.mjs
     siteTitle: `Anka Szymczyk`,
-    siteTitleAlt: `Anka Szymczyk - Art, Clay, Pain`,
-    siteHeadline: `Anka Szymczyk - Art, Clay, Pain`,
+    siteTitleAlt: `Anka Szymczyk - Art, Clay, Paint`,
+    siteHeadline: `Anka Szymczyk - Art, Clay, Paint`,
     siteDescription: `Work of Anka Szymczyk`,
     siteImage: `/banner.png`,
     siteLanguage: `en`,

@@ -1,10 +1,11 @@
-import { graphql, PageProps } from 'gatsby';
-import * as React from 'react'
-import { More } from '../../components/more';
-import Layout from '../../components/layout'
-import { PageTitle } from '../../components/page-title';
-import Seo from '../../components/seo'
-import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image';
+import { graphql, PageProps } from "gatsby";
+import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
+import * as React from "react";
+import Seo from "../../components/accessabilities/seo";
+import { More } from "../../components/shared/more";
+import { PageTitle } from "../../components/shared/page-title";
+import { Time } from "../../components/shared/time";
+import Layout from "../../components/structure/layout";
 
 type Props = {
   mdx: {
@@ -20,7 +21,7 @@ type Props = {
         childImageSharp: {
           gatsbyImageData: IGatsbyImageData;
         };
-      }>
+      }>;
     };
     id: string;
     parent: {
@@ -29,8 +30,8 @@ type Props = {
   };
 };
 
-const Project:React.FC<PageProps<Props>> = (props) => {
-  console.log(props); 
+const Project: React.FC<PageProps<Props>> = (props) => {
+  console.log(props);
 
   const {
     data: {
@@ -44,14 +45,12 @@ const Project:React.FC<PageProps<Props>> = (props) => {
 
   const allImages = [cover].concat(images);
 
-  console.log(allImages)
+  console.log(allImages);
 
   return (
     <Layout>
-      <PageTitle
-        title={title}
-        date={date}
-      ></PageTitle>
+      <PageTitle title={title} time={  <Time date={date}></Time>}>
+      </PageTitle>
 
       <article>{children}</article>
 
@@ -72,11 +71,13 @@ const Project:React.FC<PageProps<Props>> = (props) => {
       <More to="../../" />
     </Layout>
   );
-}
+};
 
-export const Head = ({data}: {data: Props}) => <Seo title={data.mdx.frontmatter.title} />
+export const Head = ({ data }: { data: Props }) => (
+  <Seo title={data.mdx.frontmatter.title} />
+);
 
-export default Project
+export default Project;
 
 export const query = graphql`
   query MyQuery($id: String) {
@@ -87,12 +88,20 @@ export const query = graphql`
         date(formatString: "MMMM D, YYYY")
         cover {
           childImageSharp {
-            gatsbyImageData(width: 1200, quality: 90, formats: [AUTO, WEBP, AVIF])
+            gatsbyImageData(
+              width: 1200
+              quality: 90
+              formats: [AUTO, WEBP, AVIF]
+            )
           }
         }
-        images { 
+        images {
           childImageSharp {
-            gatsbyImageData(width: 1200, quality: 90, formats: [AUTO, WEBP, AVIF])
+            gatsbyImageData(
+              width: 1200
+              quality: 90
+              formats: [AUTO, WEBP, AVIF]
+            )
           }
         }
       }
@@ -103,4 +112,4 @@ export const query = graphql`
       }
     }
   }
-`
+`;
