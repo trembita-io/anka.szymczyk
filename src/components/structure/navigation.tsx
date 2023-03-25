@@ -1,8 +1,7 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui";
 import { Link } from "gatsby";
 import { readableColor } from "polished";
-import { replaceSlashes } from "../../utils/replace-slashes";
+import { jsx } from "theme-ui";
 // import useJodieConfig from "../hooks/use-jodie-config"
 
 const Navigation = ({ bg }: { bg: string }) => {
@@ -41,7 +40,8 @@ const Navigation = ({ bg }: { bg: string }) => {
           </li>
         ))} */}
 
-        {[undefined, "blog", "about"].map((navItem) => (
+        {/* {[undefined, "blog", "about"].map((navItem) => ( */}
+        {[undefined, "about"].map((navItem) => (
           <li key={navItem ?? ""}>
             <Link to={`/${navItem ?? ""}`}>
               {(navItem ?? "Home").toUpperCase()}

@@ -1,10 +1,11 @@
 /** @jsx jsx */
-import { jsx, get } from "theme-ui";
 import { Link } from "gatsby";
 import { readableColor } from "polished";
-import Logo from "../../icons/logo";
+import { get, jsx } from "theme-ui";
 import useSiteMetadata from "../../hooks/use-site-metadata";
+import Logo from "../../icons/logo";
 // import useJodieConfig from "../hooks/use-jodie-config"
+import { Contact } from "../shared/contact";
 import Navigation from "./navigation";
 
 type SidebarProps = { bg: string };
@@ -53,8 +54,12 @@ const Sidebar = ({ bg }: SidebarProps) => {
       </Link>
       <div sx={{ py: 4, display: [`none`, `none`, `none`, `block`] }} />
       <Navigation bg={bg} />
+
+      <div className="hidden lg:block mt-auto mb-24">
+        <Contact />
+      </div>
     </header>
   );
-};  
+};
 
 export default Sidebar;

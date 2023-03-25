@@ -2,6 +2,7 @@ import { graphql, PageProps } from "gatsby";
 import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
 import * as React from "react";
 import Seo from "../../components/accessabilities/seo";
+import { Contact } from "../../components/shared/contact";
 import { More } from "../../components/shared/more";
 import { PageTitle } from "../../components/shared/page-title";
 import { Time } from "../../components/shared/time";
@@ -12,6 +13,8 @@ type Props = {
     frontmatter: {
       title: string;
       date: string;
+      sold?: boolean;
+      price?: string;
       cover: {
         childImageSharp: {
           gatsbyImageData: IGatsbyImageData;
@@ -36,7 +39,7 @@ const Project: React.FC<PageProps<Props>> = (props) => {
   const {
     data: {
       mdx: {
-        frontmatter: { title, date, cover, images },
+        frontmatter: { title, date, cover, images, sold, price },
         parent: { modifiedTime },
       },
     },
@@ -45,12 +48,11 @@ const Project: React.FC<PageProps<Props>> = (props) => {
 
   const allImages = [cover].concat(images);
 
-  console.log(allImages);
+  // console.log(allImages);
 
   return (
     <Layout>
-      <PageTitle title={title} time={  <Time date={date}></Time>}>
-      </PageTitle>
+      <PageTitle title={title} time={<Time date={date}></Time>}></PageTitle>
 
       <article>{children}</article>
 
@@ -67,6 +69,18 @@ const Project: React.FC<PageProps<Props>> = (props) => {
             />
           ))}
       </section>
+
+      {!sold && !!price && (
+        <div className="mt-4">
+          <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+            Interested in acquiring?
+            <span className="underline underline-offset-3 decoration-8 decoration-blue-400 dark:decoration-blue-600">
+              Contact me 
+            </span>
+          </h1>
+          <Contact></Contact>
+        </div>
+      )}
 
       <More to="../../" />
     </Layout>
@@ -85,6 +99,8 @@ export const query = graphql`
       id
       frontmatter {
         title
+        sold
+        price
         date(formatString: "MMMM D, YYYY")
         cover {
           childImageSharp {

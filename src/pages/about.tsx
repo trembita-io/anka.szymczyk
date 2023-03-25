@@ -5,14 +5,15 @@ import { Contact } from "../components/shared/contact";
 import { Image } from "../components/shared/image";
 import { PageTitle } from "../components/shared/page-title";
 import Layout from "../components/structure/layout";
+import * as styles from './about.module.scss';
 
 const AboutPage = () => {
   return (
     <Layout>
       <PageTitle title="Anka Szymczyk"></PageTitle>
-      <article className="">
+      <article className={styles.informationGeneral}>
         <Image
-          imgClassName="h-80 w-auto float-left mr-4 mb-4"
+          imgClassName="h-80 w-auto mx-auto sm:float-left sm:mr-4 mb-4 md:mb-1"
           src={withPrefix("/about.jpeg")}
         ></Image>
         <Heading>
@@ -46,7 +47,9 @@ const AboutPage = () => {
           supports charity with her works. Her works have been presented at
           several individual and several collective exhibitions.
         </section>
+      </article>
 
+      <article>
         <Heading className="mt-2">
           <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">
             Exhibitions, Wystawy indywidualne:
@@ -88,7 +91,7 @@ const AboutPage = () => {
             </span>
           </li>
           <li className="flex items-center">
-              <DoneCheck></DoneCheck>
+            <DoneCheck></DoneCheck>
             <span>
               <time dateTime="2014">2014</time> - "Flower power", Ostrów
               Mazowiecka, Polska Wystawy zbiorowe
