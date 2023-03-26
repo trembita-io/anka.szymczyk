@@ -55,7 +55,7 @@ const Sidebar = ({ bg }: SidebarProps) => {
       <div sx={{ py: 4, display: [`none`, `none`, `none`, `block`] }} />
       <Navigation bg={bg} />
 
-      <div className="hidden lg:block mt-auto mb-24">
+      <div className="hidden lg:block mt-auto mb-28">
         <Contact />
       </div>
     </header>

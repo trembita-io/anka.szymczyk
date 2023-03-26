@@ -1,19 +1,12 @@
 /** @jsx jsx */
-import { jsx, Link, useThemeUI, get } from "theme-ui";
 import { readableColor } from "polished";
+import { get, jsx, Link } from "theme-ui";
+import { useBuildTime } from "../../data/static/metadata/buildTime";
 import useSiteMetadata from "../../hooks/use-site-metadata";
 
 const Footer = ({ bg }: { bg: string }) => {
   const { siteTitle } = useSiteMetadata();
-  // const {
-  //   theme: { rawColors },
-  // } = useThemeUI();
-
-  // const text = readableColor(
-  //   bg,
-  //   rawColors!.textMuted as string | undefined,
-  //   rawColors!.textMutedLight as string | undefined
-  // );
+  const buildTime = useBuildTime();
 
   return (
     <footer
@@ -40,27 +33,24 @@ const Footer = ({ bg }: { bg: string }) => {
         variant: `footer`,
       }}
     >
-      <div>
-        &copy; {new Date().getFullYear()} by{" "}
+      <p>
+        &copy; {new Date().getFullYear()}, {" "}
         <a href="https://www.facebook.com/anka.szymczyk.1" target="_blank">
-          {siteTitle}
-        </a>.
-      </div>
-      <div>
-        <Link aria-label="Link to the theme's GitHub repository" href="/">
-          Site
-        </Link>
-        {` `}
-        by
-        {` `}
+          {siteTitle}.
+        </a>
+      </p>
+      <p>All rights reserved.</p> <br />
+      <p>
+          Site by {" "}
         <Link
           aria-label="Link to the theme author's website"
           target="_blank"
           href="https://github.com/trembita-io"
         >
-          Trembita.
+          Trembita.io
         </Link>
-      </div>
+      </p>
+      <p>Updated at <time dateTime={buildTime}>{buildTime}</time></p>
     </footer>
   );
 };

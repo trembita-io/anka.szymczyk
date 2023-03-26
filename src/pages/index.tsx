@@ -146,7 +146,7 @@ const Homepage: React.FC<PageProps<HomepageProps>> = ({ data }) => {
           )}
         </div>
 
-        {sellingItems.length > 0 && (
+        {soldItems.length > 0 && (
           <div className="relative isolate  gap-x-6 overflow-hidden bg-gray-50 py-2.5 px-6 sm:px-3.5 text-center">
             <svg
               viewBox="0 0 577 310"
@@ -184,18 +184,7 @@ const Homepage: React.FC<PageProps<HomepageProps>> = ({ data }) => {
 
             <p className="text-sm leading-6 text-gray-900">
               <strong className="font-semibold">My art</strong>
-              {/* <svg viewBox="0 0 2 2" className="mx-2 inline h-0.5 w-0.5 fill-current" aria-hidden="true"><circle cx="1" cy="1" r="1" /></svg> */}
-              {/* Join us in Denver from June 7 – 9 to see what’s coming next. */}
             </p>
-
-            {/* <div className="flex flex-1 justify-end">
-            <button type="button" className="-m-3 p-3 focus-visible:outline-offset-[-4px]">
-              <span className="sr-only">Dismiss</span>
-              <svg className="h-5 w-5 text-gray-900" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
-              </svg>
-            </button>
-          </div> */}
           </div>
         )}
 
