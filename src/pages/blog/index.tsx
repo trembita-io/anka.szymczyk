@@ -28,7 +28,7 @@ const BlogPage = ({ data }: { data: Props }) => {
             index
           ) => (
             <React.Fragment key={id}>
-              <Link className={article__link} to={slug?.toLowerCase()}>
+              <Link className={article__link} to={`.${slug?.toLowerCase()}`}>
                 <article className={article}>
                   <Time date={date} modifiedTime={modifiedTime}></Time>
 

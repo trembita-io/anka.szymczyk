@@ -31,7 +31,7 @@ const AboutPage = () => {
         </section>
 
         <Heading className="mt-2">
-          <span className="underline underline-offset-3 decoration-8 decoration-blue-400 dark:decoration-blue-600">
+          <span className="underline underline-offset-3 decoration-8 decoration-blue-400">
             Meaning
           </span>
         </Heading>
@@ -55,7 +55,7 @@ const AboutPage = () => {
             Exhibitions, Wystawy indywidualne:
           </span>
         </Heading>
-        <ul className="max-w-md space-y-1 text-gray-500 list-inside dark:text-gray-400">
+        <ul className="max-w-md space-y-1 text-gray-500 list-inside">
           <li className="flex items-center">
             <DoneCheck />
             <span>
@@ -121,7 +121,7 @@ export default AboutPage;
 
 const DoneCheck = () => (
   <svg
-    className="w-4 h-4 mr-1.5 text-green-500 dark:text-green-400 flex-shrink-0"
+    className="w-4 h-4 mr-1.5 text-green-500 flex-shrink-0"
     fill="currentColor"
     viewBox="0 0 20 20"
     xmlns="http://www.w3.org/2000/svg"

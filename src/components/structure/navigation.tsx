@@ -40,8 +40,8 @@ const Navigation = ({ bg }: { bg: string }) => {
           </li>
         ))} */}
 
-        {/* {[undefined, "blog", "about"].map((navItem) => ( */}
-        {[undefined, "about"].map((navItem) => (
+        {[undefined, "blog", "about"].map((navItem) => (
+        // {[undefined, "about"].map((navItem) => (
           <li key={navItem ?? ""}>
             <Link to={`/${navItem ?? ""}`}>
               {(navItem ?? "Home").toUpperCase()}
