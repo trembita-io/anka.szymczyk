@@ -6,6 +6,7 @@ import Wrapper from "./layout-wrapper";
 import Sidebar from "./sidebar";
 import Footer from "./footer";
 import { SkipNavTarget, SkipNavTrigger } from "../accessabilities/skip-nav";
+import CookieConsent from "react-cookie-consent";
 
 type LayoutProps = { children: React.ReactNode; color?: string, slim?: boolean; };
 
@@ -47,6 +48,7 @@ const Layout = ({ children, color = `white`, slim }: LayoutProps) => (
       })}
     />
     <SkipNavTrigger />
+    <CookieConsent>This website uses cookies to enhance the user experience.</CookieConsent>
     <Wrapper>
       <Sidebar bg={color} />
       <main className={`container mx-auto ${!slim && 'px-4 py-4'}`} sx={{ gridColumnStart: [1, 1, 1, 2] }}>

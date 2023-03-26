@@ -2,8 +2,8 @@
 import { Link } from "gatsby";
 import { readableColor } from "polished";
 import { get, jsx } from "theme-ui";
-import useSiteMetadata from "../../hooks/use-site-metadata";
-import Logo from "../../icons/logo";
+import useSiteMetadata from "../../data/static/metadata/use-site-metadata";
+import Logo from "../shared/logo";
 // import useJodieConfig from "../hooks/use-jodie-config"
 import { Contact } from "../shared/contact";
 import Navigation from "./navigation";

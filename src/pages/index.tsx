@@ -2,9 +2,11 @@
 import { graphql, HeadFC, PageProps } from "gatsby";
 import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
 import * as React from "react";
+import { useState } from "react";
 import { jsx } from "theme-ui";
 import Seo from "../components/accessabilities/seo";
-import GridItem from "../components/structure/grid-item";
+import GridItem from "../components/home/grid-item";
+import { GroupTitle } from "../components/home/group-title";
 import Layout from "../components/structure/layout";
 import locales from "../locales";
 import { itemListWrapperStyles, itemStyles } from "../styles/item-list";
@@ -17,6 +19,7 @@ export type HomepageProps = {
         hidden?: boolean;
         title: string;
         slug: string;
+        category: string;
         price?: string;
         sold?: boolean;
         cover: {
@@ -32,33 +35,51 @@ export type HomepageProps = {
 
 const Homepage: React.FC<PageProps<HomepageProps>> = ({ data }) => {
   const { allMdx: projects } = data;
-  const allItems = [...projects.nodes];
+  const allProjects = [...projects.nodes];
 
-  const visibleItems = allItems.filter(
+  const visibleProjects = allProjects.filter(
     ({ frontmatter: item }) => item.hidden !== true
   );
 
-  const sellingItems = visibleItems.filter(
+  const allFilters = ["All"].concat([
+    ...new Set(
+      visibleProjects.map(({ frontmatter: { category } }) => category)
+    ),
+  ]);
+
+  const [active, setActive] = useState("All");
+
+  const sellingItems = visibleProjects.filter(
     ({ frontmatter: item }) => !!item.price
   );
 
-  const itemsCount = sellingItems.length;
+  // const itemsCount = sellingItems.length;
   let divisor = 1;
 
-  for (let i = 0; i < itemsCount; i++) {
-    const quotient = itemsCount % divisor;
-    const quotientAlt = (itemsCount - 1) % divisor;
+  // for (let i = 0; i < itemsCount; i++) {
+  //   const quotient = itemsCount % divisor;
+  //   const quotientAlt = (itemsCount - 1) % divisor;
 
-    if (quotient === 0 || quotientAlt === 0) {
-      break;
-    }
+  //   if (quotient === 0 || quotientAlt === 0) {
+  //     break;
+  //   }
 
-    divisor -= 1;
-  }
+  //   divisor -= 1;
+  // }
 
-  const soldItems = visibleItems.filter(
+  const [soldActive, setSoldActive] = useState("All");
+
+  const soldItems = visibleProjects.filter(
     ({ frontmatter: item }) => !item.price || item.sold
   );
+
+  const soldFilters = ["All"].concat([
+    ...new Set(
+      visibleProjects
+        .filter(({ frontmatter: item }) => !item.price || item.sold)
+        .map(({ frontmatter: { category } }) => category)
+    ),
+  ]);
 
   return (
     <Layout slim={true}>
@@ -66,153 +87,114 @@ const Homepage: React.FC<PageProps<HomepageProps>> = ({ data }) => {
         {locales.home}
       </h1>
       <div className={`item-list-wrapper`} sx={itemListWrapperStyles}>
-        {sellingItems.length > 0 && (
-          <div className="relative isolate  gap-x-6 overflow-hidden bg-gray-50 py-2.5 px-6 sm:px-3.5 text-center">
-            <svg
-              viewBox="0 0 577 310"
-              aria-hidden="true"
-              className="absolute top-1/2 left-[max(-7rem,calc(50%-52rem))] -z-10 w-[36.0625rem] -translate-y-1/2 transform-gpu blur-2xl"
+        <GroupTitle
+          title={
+            sellingItems.length > 0
+              ? "Available for you"
+              : `I don\'t have ${active} for you.`
+          }
+        >
+          <br />
+          {allFilters.map((filter) => (
+            <button
+              key={`${filter}-available`}
+              onClick={() => setActive(filter)}
+              className={`${
+                active === filter
+                  ? "bg-cyan-500 border-2 border-green-500"
+                  : "bg-cyan-200 text-black"
+              } px-4 py-2 font-semibold text-sm  text-white rounded-full shadow-sm ml-2`}
             >
-              <path
-                id="1d77c128-3ec1-4660-a7f6-26c7006705ad"
-                fill="url(#49a52b64-16c6-4eb9-931b-8e24bf34e053)"
-                fillOpacity=".3"
-                d="m142.787 168.697-75.331 62.132L.016 88.702l142.771 79.995 135.671-111.9c-16.495 64.083-23.088 173.257 82.496 97.291C492.935 59.13 494.936-54.366 549.339 30.385c43.523 67.8 24.892 159.548 10.136 196.946l-128.493-95.28-36.628 177.599-251.567-140.953Z"
-              />
-              <defs>
-                <linearGradient
-                  id="49a52b64-16c6-4eb9-931b-8e24bf34e053"
-                  x1="614.778"
-                  x2="-42.453"
-                  y1="26.617"
-                  y2="96.115"
-                  gradientUnits="userSpaceOnUse"
-                >
-                  <stop stopColor="#9089FC" />
-                  <stop offset="1" stopColor="#FF80B5" />
-                </linearGradient>
-              </defs>
-            </svg>
+              {filter}
+            </button>
+          ))}
+        </GroupTitle>
 
-            <svg
-              viewBox="0 0 577 310"
-              aria-hidden="true"
-              className="absolute top-1/2 left-[max(45rem,calc(50%+8rem))] -z-10 w-[36.0625rem] -translate-y-1/2 transform-gpu blur-2xl"
-            >
-              <use href="#1d77c128-3ec1-4660-a7f6-26c7006705ad" />
-            </svg>
-
-            <p className="text-sm leading-6 text-gray-900">
-              <strong className="font-semibold">Available for you</strong>
-            </p>
-          </div>
-        )}
         <div className={`item-list div${divisor}`}>
-          {sellingItems.length > 0 ? (
+          {sellingItems.length > 0 && (
             <React.Fragment>
-              {sellingItems.map(({ frontmatter: item }, index) => (
-                <GridItem
-                  to={`/projects/${item.slug}`}
-                  className="item"
-                  key={item.title}
-                  sx={itemStyles}
-                  data-testid={item.title}
-                >
-                  {!!item.cover?.childImageSharp?.gatsbyImageData ? (
-                    <GatsbyImage
-                      loading={index === 0 ? `eager` : `lazy`}
-                      image={item.cover?.childImageSharp?.gatsbyImageData}
-                      alt=""
-                    />
-                  ) : (
-                    <img srcSet="/logo.png" />
-                  )}
-                  <span>{item.title}</span>
+              {sellingItems
+                .filter(
+                  ({ frontmatter: item }) =>
+                    active === "All" || item.category === active
+                )
+                .map(({ frontmatter: item }, index) => (
+                  <GridItem
+                    to={`/projects${item.slug}`}
+                    className="item"
+                    key={!!item.title ? item.title : item.slug}
+                    sx={itemStyles}
+                    data-testid={item.title ?? item.slug}
+                  >
+                    {!!item.cover?.childImageSharp?.gatsbyImageData ? (
+                      <GatsbyImage
+                        loading={index === 0 ? `eager` : `lazy`}
+                        image={item.cover?.childImageSharp?.gatsbyImageData}
+                        alt=""
+                      />
+                    ) : (
+                      <img srcSet="/logo.png" />
+                    )}
+                    <span>{item.title}</span>
 
-                  {item.price && (
-                    <section className="absolute mt-3 p-1 rounded-r-lg bg-white">
-                      <span className="absolute -right-1 -top-1 flex h-3 w-3">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
-                      </span>
-                      {item.price}
-                    </section>
-                  )}
-                </GridItem>
-              ))}
+                    {item.price && (
+                      <section className="absolute mt-3 p-1 rounded-r-lg bg-white">
+                        <span className="absolute -right-1 -top-1 flex h-3 w-3">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
+                        </span>
+                        {item.price}
+                      </section>
+                    )}
+                  </GridItem>
+                ))}
             </React.Fragment>
-          ) : (
-            <div sx={{ padding: 3 }}>I don't sell anything right now.</div>
           )}
         </div>
 
-        {soldItems.length > 0 && (
-          <div className="relative isolate  gap-x-6 overflow-hidden bg-gray-50 py-2.5 px-6 sm:px-3.5 text-center">
-            <svg
-              viewBox="0 0 577 310"
-              aria-hidden="true"
-              className="absolute top-1/2 left-[max(-7rem,calc(50%-52rem))] -z-10 w-[36.0625rem] -translate-y-1/2 transform-gpu blur-2xl"
+        <GroupTitle title="My art">
+          <br />
+          {soldFilters.map((filter) => (
+            <button
+              key={`${filter}-unavailable`}
+              onClick={() => setSoldActive(filter)}
+              className={`${
+                soldActive === filter
+                  ? "bg-cyan-500 border-2 border-green-500"
+                  : "bg-cyan-200 text-black"
+              } px-4 py-2 font-semibold text-sm  text-white rounded-full shadow-sm ml-2`}
             >
-              <path
-                id="1d77c128-3ec1-4660-a7f6-26c7006705ad"
-                fill="url(#49a52b64-16c6-4eb9-931b-8e24bf34e053)"
-                fillOpacity=".3"
-                d="m142.787 168.697-75.331 62.132L.016 88.702l142.771 79.995 135.671-111.9c-16.495 64.083-23.088 173.257 82.496 97.291C492.935 59.13 494.936-54.366 549.339 30.385c43.523 67.8 24.892 159.548 10.136 196.946l-128.493-95.28-36.628 177.599-251.567-140.953Z"
-              />
-              <defs>
-                <linearGradient
-                  id="49a52b64-16c6-4eb9-931b-8e24bf34e053"
-                  x1="614.778"
-                  x2="-42.453"
-                  y1="26.617"
-                  y2="96.115"
-                  gradientUnits="userSpaceOnUse"
-                >
-                  <stop stopColor="#9089FC" />
-                  <stop offset="1" stopColor="#FF80B5" />
-                </linearGradient>
-              </defs>
-            </svg>
-
-            <svg
-              viewBox="0 0 577 310"
-              aria-hidden="true"
-              className="absolute top-1/2 left-[max(45rem,calc(50%+8rem))] -z-10 w-[36.0625rem] -translate-y-1/2 transform-gpu blur-2xl"
-            >
-              <use href="#1d77c128-3ec1-4660-a7f6-26c7006705ad" />
-            </svg>
-
-            <p className="text-sm leading-6 text-gray-900">
-              <strong className="font-semibold">My art</strong>
-            </p>
-          </div>
-        )}
+              {filter}
+            </button>
+          ))}
+        </GroupTitle>
 
         <div className="item-list">
-          {soldItems.length > 0 && (
-            <React.Fragment>
-              {soldItems.map(({ frontmatter: item }, index) => (
-                <GridItem
-                  to={`/projects/${item.slug}`}
-                  className="item"
-                  key={item.title}
-                  sx={itemStyles}
-                  data-testid={item.title}
-                >
-                  {!!item.cover?.childImageSharp?.gatsbyImageData ? (
-                    <GatsbyImage
-                      loading={index === 0 ? `eager` : `lazy`}
-                      image={item.cover?.childImageSharp?.gatsbyImageData}
-                      alt=""
-                    />
-                  ) : (
-                    <img srcSet="/logo.png" />
-                  )}
-                  <span>{item.title}</span>
-                </GridItem>
-              ))}
-            </React.Fragment>
-          )}
+          {soldItems
+            .filter(
+              ({ frontmatter: item }) =>
+                soldActive === "All" || item.category === soldActive
+            )
+            .map(({ frontmatter: item }, index) => (
+              <GridItem
+                to={`/projects${item.slug}`}
+                className="item"
+                key={!!item.title ? item.title : item.slug}
+                sx={itemStyles}
+                data-testid={item.title ?? item.slug}
+              >
+                {!!item.cover?.childImageSharp?.gatsbyImageData ? (
+                  <GatsbyImage
+                    loading={index === 0 ? `eager` : `lazy`}
+                    image={item.cover?.childImageSharp?.gatsbyImageData}
+                    alt=""
+                  />
+                ) : (
+                  <img srcSet="/logo.png" />
+                )}
+                <span>{item.title}</span>
+              </GridItem>
+            ))}
         </div>
       </div>
     </Layout>
@@ -235,6 +217,7 @@ export const query = graphql`
           slug
           color
           price
+          category
           sold
           cover {
             childImageSharp {

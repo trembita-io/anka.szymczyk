@@ -2,7 +2,7 @@
 import { readableColor } from "polished";
 import { get, jsx, Link } from "theme-ui";
 import { useBuildTime } from "../../data/static/metadata/buildTime";
-import useSiteMetadata from "../../hooks/use-site-metadata";
+import useSiteMetadata from "../../data/static/metadata/use-site-metadata";
 
 const Footer = ({ bg }: { bg: string }) => {
   const { siteTitle } = useSiteMetadata();

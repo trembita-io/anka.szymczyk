@@ -31,6 +31,13 @@ type Props = {
       modifiedTime: string;
     };
   };
+  allFile: {
+    nodes: Array<{
+      childImageSharp: {
+        gatsbyImageData: IGatsbyImageData;
+      };
+    }>;
+  }
 };
 
 const Project: React.FC<PageProps<Props>> = (props) => {
@@ -39,16 +46,17 @@ const Project: React.FC<PageProps<Props>> = (props) => {
   const {
     data: {
       mdx: {
-        frontmatter: { title, date, cover, images, sold, price },
-        parent: { modifiedTime },
+        frontmatter: { title, date, sold, price },
       },
+      allFile: {
+        nodes: allImages
+      }
     },
   } = props;
   const { children } = props;
 
-  const allImages = [cover].concat(images);
-
-  // console.log(allImages);
+  // console.log(nodes)
+  // const allImages = [cover].concat(images);
 
   return (
     <Layout>
@@ -94,7 +102,7 @@ export const Head = ({ data }: { data: Props }) => (
 export default Project;
 
 export const query = graphql`
-  query MyQuery($id: String) {
+  query MyQuery($id: String, $frontmatter__slug: String) {
     mdx(id: { eq: $id }) {
       id
       frontmatter {
@@ -124,6 +132,17 @@ export const query = graphql`
       parent {
         ... on File {
           modifiedTime(formatString: "MMMM D, YYYY")
+        }
+      }
+    }
+    allFile(filter: {extension: {regex: "/(jpg)|(jpeg)|(png)/"}, dir: {regex: $frontmatter__slug}}) {
+      nodes {
+        childImageSharp {
+          gatsbyImageData(
+            width: 1200
+            quality: 90
+            formats: [AUTO, WEBP, AVIF]
+          )
         }
       }
     }

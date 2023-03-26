@@ -1,6 +1,6 @@
 import * as React from "react";
 import { withPrefix } from "gatsby";
-import useSiteMetadata from "../../hooks/use-site-metadata";
+import useSiteMetadata from "../../data/static/metadata/use-site-metadata";
 
 type Props = {
   title?: string;

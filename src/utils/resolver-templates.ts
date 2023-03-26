@@ -1,17 +1,15 @@
-import type { IGridItem } from "./modify-grid";
-
 // Only return nodes with the type "MdxPage"
-export function onlyPages(data: IGridItem[]) {
+export function onlyPages(data: any[]) {
   return data.filter((p) => p.__typename === `MdxPage`);
 }
 
 // Only return nodes with the type "MdxProject"
-export function onlyProjects(data: IGridItem[]) {
+export function onlyProjects(data: any[]) {
   return data.filter((p) => p.__typename === `MdxProject`);
 }
 
 // Only return nodes that match the slugs defined in the given array of slugs
-export function filterBySlug(data: IGridItem[], slugFilter: string[]) {
+export function filterBySlug(data: any[], slugFilter: string[]) {
   return data.filter((d) => slugFilter.includes(d.slug));
 }
 
@@ -21,7 +19,7 @@ function random(seed: number) {
   return x - Math.floor(x);
 }
 
-export function shuffle(originalData: IGridItem[], seed = 1) {
+export function shuffle(originalData: any[], seed = 1) {
   const data = [...originalData];
   let m = data.length;
   let t;
