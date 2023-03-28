@@ -43,7 +43,11 @@ const Homepage: React.FC<PageProps<HomepageProps>> = ({ data }) => {
 
   const allFilters = ["All"].concat([
     ...new Set(
-      visibleProjects.map(({ frontmatter: { category } }) => category)
+      visibleProjects
+      .filter(
+        ({ frontmatter: item }) => !!item.price
+      )
+      .map(({ frontmatter: { category } }) => category)
     ),
   ]);
 
@@ -101,9 +105,9 @@ const Homepage: React.FC<PageProps<HomepageProps>> = ({ data }) => {
               onClick={() => setActive(filter)}
               className={`${
                 active === filter
-                  ? "bg-cyan-500 border-2 border-green-500"
+                  ? "bg-cyan-500 border-2 border-green-500  text-white"
                   : "bg-cyan-200 text-black"
-              } px-4 py-2 font-semibold text-sm  text-white rounded-full shadow-sm ml-2`}
+              } px-4 py-2 font-semibold text-sm rounded-full shadow-sm ml-2`}
             >
               {filter}
             </button>
@@ -160,9 +164,9 @@ const Homepage: React.FC<PageProps<HomepageProps>> = ({ data }) => {
               onClick={() => setSoldActive(filter)}
               className={`${
                 soldActive === filter
-                  ? "bg-cyan-500 border-2 border-green-500"
+                  ? "bg-cyan-500 border-2 border-green-500 text-white"
                   : "bg-cyan-200 text-black"
-              } px-4 py-2 font-semibold text-sm  text-white rounded-full shadow-sm ml-2`}
+              } px-4 py-2 font-semibold text-sm rounded-full shadow-sm ml-2`}
             >
               {filter}
             </button>

@@ -82,15 +82,15 @@ const config: GatsbyConfig = {
         ],
       },
     },
-    {
-      resolve: 'gatsby-plugin-offline',
-      options: {
-        precachePages: [`/projects/*`],
-         workboxConfig: {
-            globPatterns: ['**/icon-path*']
-         }
-      }
-   },
+  //   {
+  //     resolve: 'gatsby-plugin-offline',
+  //     options: {
+  //       precachePages: [`/projects/*`],
+  //        workboxConfig: {
+  //           globPatterns: ['**/icon-path*']
+  //        }
+  //     }
+  //  },
     'gatsby-plugin-theme-ui',
     {
       resolve: `gatsby-plugin-google-gtag`,
