@@ -5,7 +5,7 @@ import { Contact } from "../../components/shared/contact";
 import { Image } from "../../components/shared/image";
 import { PageTitle } from "../../components/shared/page-title";
 import Layout from "../../components/structure/layout";
-import * as styles from './about.module.scss';
+import * as styles from "./about.module.scss";
 
 const AboutPage = () => {
   return (
@@ -21,13 +21,17 @@ const AboutPage = () => {
           <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">
             Anna Szymczyk
           </span>{" "}
-          was born in 1968 in Mrągowo.
+          was born in 1968 in Mrągowo and studied at the European Academy of
+          Arts.
         </Heading>
         <section>
-          For a year she studied at the European Academy of Arts. As her
-          lifestyle she chose artistic activity. She deals with, among others,
-          drawing, painting, sculpture, furniture design. Her painting work was
-          influenced by the desire to make the world warmer and friendlier.
+          A wide range of her art activities, such as, among others - drawing,
+          painting, sculpting, furniture design - have become a natural part of
+          her daily life. Her paintings express the desire to make the world
+          warmer and friendlier whereas her sculptures convey the message of
+          immaterial values and go far beyond just decorative or symbolic
+          function. They deal with the relationship between people and the world
+          around them.
         </section>
 
         <Heading className="mt-2">
@@ -36,16 +40,15 @@ const AboutPage = () => {
           </span>
         </Heading>
         <section>
-          Sculpture works are a carrier of immaterial values. It goes beyond
-          treating them as a decorative or symbolic motif. It deals with
-          people's relationship with the world around them. The works are
-          characterized by a critical view, a dialogue with history, a
-          pacifistic attitude, a joke. There are lots of animal there. She
-          places their images in works referring to architecture, urban planning
-          and interior design. Watching these depictions of plants and animals,
-          one can conclude that something is wrong here... She willingly
-          supports charity with her works. Her works have been presented at
-          several individual and several collective exhibitions.
+          Her artworks depict a critical view of the world, provide a dialogue
+          with history, represent artist’s pacifist attitude, and her sense of
+          humor. Animals play a key role in her works, they also appear in
+          architecture, urban planning and interior design. The depictions of
+          plants and animals may seem strange or exaggerated. However, they show
+          the artist’s interests, passions and her system of values. Szymczak
+          willingly supports charity with her works and is devoted to animal
+          rights activism . Her works have been presented at several individual
+          and several collective exhibitions.
         </section>
       </article>
 
